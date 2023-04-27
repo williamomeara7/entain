@@ -122,9 +122,6 @@ func (r *racesRepo) applySorting(query string, sort *racing.ListRacesRequestSort
 	case racing.ListRacesRequestSort_DESC:
 		query += " DESC"
 	}
-
-	return query
-
 	return query
 }
 
@@ -148,6 +145,15 @@ func (m *racesRepo) scanRaces(
 		ts, err := ptypes.TimestampProto(advertisedStart)
 		if err != nil {
 			return nil, err
+		}
+
+		if advertisedStart.Before(time.Now()) {
+			// All races that have an `advertised_start_time` in the past should
+			// reflect `CLOSED`
+			// Note that this depends on the system having the correct time.
+			race.Status = racing.Race_CLOSED
+		} else {
+			race.Status = racing.Race_OPEN
 		}
 
 		race.AdvertisedStartTime = ts
