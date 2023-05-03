@@ -20,7 +20,6 @@ message GetRaceRequest {
 message ListRacesRequest {
   ListRacesRequestFilter filter = 1;
   ListRacesRequestSort sort = 2;
-  optional bool visible = 3;
 }
 
 
