@@ -43,9 +43,9 @@ brew install protobuf
 2. In a terminal window, start our racing service...
 
 ```bash
-cd ./racing
+cd ./sports
 
-go build && ./racing
+go build && ./sports
 ➜ INFO[0000] gRPC server listening on: localhost:9000
 ```
 
